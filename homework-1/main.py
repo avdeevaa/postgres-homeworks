@@ -3,6 +3,9 @@ import psycopg2
 
 import csv
 
+import pathlib
+from pathlib import Path
+
 connect = psycopg2.connect(
     host="localhost",
     database="north",
@@ -11,10 +14,12 @@ connect = psycopg2.connect(
 )
 cursor = connect.cursor()
 
-#без этого не получается получить файлы в папке north data
-customers = r"C:\Users\avdeevaa\PycharmProjects\postgres-homeworks\homework-1\north_data\customers_data.csv"
-employees = r"C:\Users\avdeevaa\PycharmProjects\postgres-homeworks\homework-1\north_data\employees_data.csv"
-orders = r"C:\Users\avdeevaa\PycharmProjects\postgres-homeworks\homework-1\north_data\orders_data.csv"
+
+work_path = pathlib.Path.cwd()
+
+customers = Path(work_path, "north_data", "customers_data.csv")
+employees = Path(work_path, "north_data", "employees_data.csv")
+orders = Path(work_path, "north_data", "orders_data.csv")
 
 with open(customers) as file: #первая таблица
     cust = csv.reader(file)
